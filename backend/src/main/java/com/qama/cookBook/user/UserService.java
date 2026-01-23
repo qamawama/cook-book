@@ -1,6 +1,7 @@
 package com.qama.cookBook.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -9,9 +10,12 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User registerUser(User user) throws Exception {
-        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            throw new Exception("Email already registered");
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public User registerUser(RegisterRequest request) {
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new RuntimeException("Email already registered");
         }
         return userRepository.save(user);
     }

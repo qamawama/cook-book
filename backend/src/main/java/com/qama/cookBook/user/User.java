@@ -15,13 +15,13 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
-    private String name;
+    @Column(nullable = false, unique = true)
+    private String username;
 
     public User(){}
 
-    public User(String name, String email, String password){
-        this.name = name;
+    public User(String username, String email, String password){
+        this.username = username;
         this.email = email;
         this.password = password;
     }
@@ -46,11 +46,11 @@ public class User {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
