@@ -33,8 +33,7 @@ public class AuthController {
             String token = jwtTokenProvider.generateToken(user.getEmail());
             LoginResponse response = new LoginResponse(token, user.getUsername(), user.getEmail());
             return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
