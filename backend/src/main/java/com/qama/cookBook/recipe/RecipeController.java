@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.List;
+
 @RestController
 @RequestMapping("/recipes")
 @CrossOrigin(origins = "*")
@@ -29,5 +32,34 @@ public class RecipeController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @GetMapping
+    public ResponseEntity<List<Recipe>> getAllRecipes() {
+        List<Recipe> recipes = recipeService.getAllRecipes();
+        return ResponseEntity.ok(recipes);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getRecipeById(@PathVariable Long id) {
+        try {
+            Recipe recipe = recipeService.getRecipeById(id);
+            return ResponseEntity.ok(recipe);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/my-recipes")
+    public ResponseEntity<List<Recipe>> getRecipeByUserId (
+            @RequestHeader("Authorization") String authHeader) {
+        try {
+            User user = jwtAuthenticationHelper.getUserFromToken(authHeader);
+            List<Recipe> recipes = recipeService.getRecipeByUserId(user.getId());
+            return ResponseEntity.ok(recipes);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Collections.emptyList());
+        }
+    }
+
 
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class RecipeService {
@@ -23,4 +24,18 @@ public class RecipeService {
 
         return recipeRepository.save(recipe);
     }
+
+    public List<Recipe> getAllRecipes() {
+        return recipeRepository.findAll();
+    }
+
+    public Recipe getRecipeById(Long id) {
+        return recipeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Recipe not found with id: " + id));
+    }
+
+    public List<Recipe> getRecipeByUserId(Long userId){
+        return recipeRepository.findByUserId(userId);
+    }
+
 }
