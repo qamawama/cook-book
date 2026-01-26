@@ -74,4 +74,17 @@ public class RecipeController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteRecipe(
+            @PathVariable Long id,
+            @RequestHeader("Authorization") String authHeader) {
+        try {
+            User user = jwtAuthenticationHelper.getUserFromToken(authHeader);
+            recipeService.deleteRecipe(id, user.getId());
+            return ResponseEntity.ok("Recipe deleted successfully");
+    } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }

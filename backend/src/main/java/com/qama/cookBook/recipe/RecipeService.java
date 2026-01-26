@@ -55,4 +55,15 @@ public class RecipeService {
         return recipeRepository.save(recipe);
     }
 
+    public void deleteRecipe(Long id, Long userId) {
+        Recipe recipe = getRecipeById(id);
+
+        if (!recipe.getUserId().equals(userId)) {
+            throw new RuntimeException("You don't have permission to delete this recipe");
+        }
+
+        recipeRepository.delete(recipe);
+
+    }
+
 }
