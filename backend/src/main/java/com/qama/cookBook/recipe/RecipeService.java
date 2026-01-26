@@ -38,4 +38,21 @@ public class RecipeService {
         return recipeRepository.findByUserId(userId);
     }
 
+    public Recipe updateRecipe(Long id, RecipeRequest request, Long userId) {
+        Recipe recipe = getRecipeById(id);
+
+        if (!recipe.getUserId().equals(userId)) {
+            throw new RuntimeException("You don't have permission to update this recipe");
+        }
+
+        recipe.setTitle(request.getTitle());
+        recipe.setDescription(request.getDescription());
+        recipe.setCategory(request.getCategory());
+        recipe.setIngredients(request.getIngredients());
+        recipe.setInstructions(request.getInstructions());
+        recipe.setUpdatedAt(LocalDateTime.now());
+
+        return recipeRepository.save(recipe);
+    }
+
 }

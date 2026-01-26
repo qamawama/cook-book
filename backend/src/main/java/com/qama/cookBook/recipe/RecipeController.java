@@ -61,5 +61,17 @@ public class RecipeController {
         }
     }
 
-
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateRecipe(
+            @PathVariable Long id,
+            @RequestBody RecipeRequest request,
+            @RequestHeader("Authorization") String authHeader) {
+        try {
+            User user = jwtAuthenticationHelper.getUserFromToken(authHeader);
+            Recipe recipe = recipeService.updateRecipe(id, request, user.getId());
+            return ResponseEntity.ok(recipe);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }
