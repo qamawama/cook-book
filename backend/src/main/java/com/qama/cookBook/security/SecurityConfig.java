@@ -23,12 +23,9 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/recipes/**").permitAll()
                         .anyRequest().authenticated()
                 );
-
-        httpSecurity.headers(headers -> headers.frameOptions(frame -> frame.disable()));
 
         return httpSecurity.build();
     }
