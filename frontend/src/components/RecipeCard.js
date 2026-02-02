@@ -11,7 +11,7 @@ function RecipeCard({recipe}) {
 
             <p className="recipe-description">{recipe.description}</p>
 
-            <Link to={`/recipe/${recipe.id}`} className="btn-view">
+            <Link to={`/recipes/${recipe.id}`} className="btn-view">
                 View Recipe
             </Link>
         </div>

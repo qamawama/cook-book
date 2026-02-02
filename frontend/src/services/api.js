@@ -35,6 +35,10 @@ export const getAllRecipes = () => {
     return api.get('/recipes');
 };
 
+export const getRecipeById = (id) => {
+    return api.get(`/recipes/${id}`);
+};
+
 export const getMyRecipes = () => {
     return api.get('/recipes/my-recipes');
 };
