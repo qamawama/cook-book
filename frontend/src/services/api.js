@@ -9,6 +9,19 @@ const api = axios.create({
     },
 });
 
+api.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            config.headers.Authorization = `Bearer  ${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
 
 export const register = (userData) => {
     return api.post('/auth/register', userData);
@@ -20,6 +33,10 @@ export const login = (credentials) => {
 
 export const getAllRecipes = () => {
     return api.get('/recipes');
+};
+
+export const createRecipe = (recipeData) => {
+    return api.post('/recipes/create', recipeData);
 };
 
 export default api;
