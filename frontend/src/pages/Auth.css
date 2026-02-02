@@ -15,8 +15,26 @@
     max-width: 400px;
 }
 
+.auth-card h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
 .form-group {
     margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+    font-weight: 500;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #4CAF50;
 }
 
 .btn-primary {
@@ -31,8 +49,36 @@
     font-weight: 500;
 }
 
+.btn-primary:hover {
+    background-color: #45a049;
+}
+
+.btn-primary:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.error-message {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
 .auth-link {
     text-align: center;
     margin-top: 20px;
     color: #666;
+}
+
+.auth-link a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.auth-link a:hover {
+    text-decoration: underline;
 }
