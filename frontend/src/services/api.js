@@ -35,6 +35,10 @@ export const getAllRecipes = () => {
     return api.get('/recipes');
 };
 
+export const getMyRecipes = () => {
+    return api.get('/recipes/my-recipes');
+};
+
 export const createRecipe = (recipeData) => {
     return api.post('/recipes/create', recipeData);
 };
