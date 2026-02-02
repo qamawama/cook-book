@@ -1,0 +1,39 @@
+.loading {
+    text-align: center;
+    padding: 40px;
+    font-size: 18px;
+    color: #666;
+}
+
+.home-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.home-header {
+    margin-bottom: 40px;
+}
+
+.home-header h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.recipes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.no-recipes {
+    text-align: center;
+    padding: 60px 20px;
+    margin-bottom: 20px;
+}
+
+.no-recipes p {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 20px;
+}

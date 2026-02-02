@@ -18,4 +18,8 @@ export const login = (credentials) => {
     return api.post('/auth/login', credentials);
 };
 
+export const getAllRecipes = () => {
+    return api.get('/recipes');
+};
+
 export default api;
