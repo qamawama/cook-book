@@ -82,7 +82,9 @@ function RecipeDetail() {
                 <div className="recipe-section">
                     <h3>Ingredients</h3>
                     <div className="ingredients-list">
-                        {recipe.ingredients.split('\n').map((ingredient, index) => (
+                        {recipe.ingredients.split('\n')
+                            .filter(ingredient => ingredient.trim() !== '')
+                            .map((ingredient, index) => (
                             <div key={index} className="ingredient-item">
                                 <span className="bullet">•</span>
                                 {ingredient}
@@ -94,8 +96,9 @@ function RecipeDetail() {
                 <div className="recipe-section">
                     <h3>Instructions</h3>
                     <div className="instructions-list">
-                        {recipe.instructions.split('\n').map((instruction, index) => (
-                            instruction.trim() && (
+                        {recipe.instructions.split('\n')
+                            .filter(instruction => instruction.trim() !== '')
+                            .map((instruction, index) => ((
                                 <div key={index} className="instruction-step">
                                     <span className="step-number">{index + 1}</span>
                                     <p>{instruction}</p>
