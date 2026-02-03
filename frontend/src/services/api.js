@@ -47,6 +47,10 @@ export const createRecipe = (recipeData) => {
     return api.post('/recipes/create', recipeData);
 };
 
+export const updateRecipe = (id, recipeData) => {
+    return api.put(`/recipes/${id}`, recipeData);
+};
+
 export const deleteRecipe = (id) => {
     return api.delete(`/recipes/${id}`);
 };
