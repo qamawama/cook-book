@@ -16,7 +16,7 @@ public class RecipeService {
         Recipe recipe = new Recipe();
         recipe.setTitle(request.getTitle());
         recipe.setDescription(request.getDescription());
-        recipe.setCategory(request.getDescription());
+        recipe.setCategory(request.getCategory());
         recipe.setIngredients(request.getIngredients());
         recipe.setInstructions(request.getInstructions());
         recipe.setCreatedAt(LocalDateTime.now());
