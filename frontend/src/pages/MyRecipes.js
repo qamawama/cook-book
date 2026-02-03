@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import RecipeCard from "../components/RecipeCard";
-import {getMyRecipes} from "../services/api";
+import {deleteRecipe, getMyRecipes} from "../services/api";
 import './MyRecipes.css';
 
 function MyRecipes() {
@@ -26,6 +26,19 @@ function MyRecipes() {
 
         fetchMyRecipes();
     }, []);
+
+    const handleDelete = async (id) => {
+        if (window.confirm("Are you sure you want to delete this recipe?")) {
+            try {
+                await deleteRecipe(id);
+                alert('Recipe deleted successfully.');
+                setRecipes(recipes.filter((recipe) => recipe.id !== id));
+            } catch (error) {
+                console.error('Error deleting recipe:', error);
+                alert('Failed to delete recipe');
+            }
+        }
+    };
 
 
     if (loading) {
@@ -54,6 +67,7 @@ function MyRecipes() {
                         <RecipeCard
                             key={recipe.id}
                             recipe={recipe}
+                            onDelete={handleDelete}
                             showActions={true}
                         />
                     ))}

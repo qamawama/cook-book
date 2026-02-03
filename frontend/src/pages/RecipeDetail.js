@@ -1,6 +1,6 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {getRecipeById} from "../services/api";
+import {deleteRecipe, getRecipeById} from "../services/api";
 import './RecipeDetail.css';
 
 function RecipeDetail() {
@@ -26,6 +26,19 @@ function RecipeDetail() {
         fetchRecipe();
     }, [id]);
 
+    const handleDelete = async () => {
+        if (window.confirm('Are you sure you want to delete this recipe?')) {
+            try {
+                await deleteRecipe(id);
+                alert('Recipe deleted successfully!');
+                navigate('/my-recipes');
+            } catch (error) {
+                console.error('Error deleting recipe:', error);
+                alert('Failed to delete recipe');
+            }
+        }
+    };
+
     if (loading) {
         return <div className="loading">Loading recipe...</div>;
     }
@@ -49,11 +62,11 @@ function RecipeDetail() {
                     {isOwner && (
                         <div className="recipe-actions">
                             <button
-
-                            >
+                                onClick={() => navigate(`/edit-recipe/${recipe.id}`)}
+                                className="btn-edit">
                                 Edit
                             </button>
-                            <button >
+                            <button onClick={handleDelete} className="btn-delete">
                                 Delete
                             </button>
                         </div>

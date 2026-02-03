@@ -47,4 +47,8 @@ export const createRecipe = (recipeData) => {
     return api.post('/recipes/create', recipeData);
 };
 
+export const deleteRecipe = (id) => {
+    return api.delete(`/recipes/${id}`);
+};
+
 export default api;

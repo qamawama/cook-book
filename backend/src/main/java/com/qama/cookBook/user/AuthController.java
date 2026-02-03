@@ -31,7 +31,7 @@ public class AuthController {
         try {
             User user = userService.loginUser(request);
             String token = jwtTokenProvider.generateToken(user.getEmail());
-            LoginResponse response = new LoginResponse(token, user.getUsername(), user.getEmail());
+            LoginResponse response = new LoginResponse(token, user.getUsername(), user.getEmail(), user.getId());
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
