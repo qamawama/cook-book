@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
-import RecipeCard from "../components/RecipeCard";
+import RecipeCard from "../../recipes/components/RecipeCard";
 import {Link} from "react-router-dom";
-import {getAllRecipes} from "../services/api";
-import "./Home.css";
+import {getAllRecipes} from "../../services/api";
+import "../styles/Home.css";
 
 function Home() {
     const [recipes, setRecipes] = useState([]);

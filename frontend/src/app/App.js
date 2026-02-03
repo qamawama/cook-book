@@ -1,13 +1,13 @@
-import './App.css';
-import Register from "./pages/Register";
+import './styles/App.css';
+import Register from "../users/pages/Register";
 import {Route, Routes} from "react-router-dom";
-import Login from "./pages/Login";
-import Home from "./pages/Home";
-import Navbar from "./components/Navbar";
-import CreateRecipe from "./pages/CreateRecipe";
-import MyRecipes from "./pages/MyRecipes";
-import RecipeDetail from "./pages/RecipeDetail";
-import EditRecipe from "./pages/EditRecipe";
+import Login from "../users/pages/Login";
+import Home from "../home/pages/Home";
+import Navbar from "../ui/components/Navbar";
+import CreateRecipe from "../recipes/pages/CreateRecipe";
+import MyRecipes from "../recipes/pages/MyRecipes";
+import RecipeDetail from "../recipes/pages/RecipeDetail";
+import EditRecipe from "../recipes/pages/EditRecipe";
 
 function App() {
   return (

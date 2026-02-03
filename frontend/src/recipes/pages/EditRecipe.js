@@ -1,22 +1,44 @@
-import {useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {createRecipe} from "../services/api";
-import './CreateRecipe.css'
+import {useNavigate, useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {getRecipeById, updateRecipe} from "../../services/api";
 
-function CreateRecipe() {
-    const [formData, setFormData] = useState({
-        title: "",
-        description: "",
-        category: "",
-        ingredients: "",
-        instructions: "",
-    });
-    const [error, setError] = useState('');
-    const [loading, setLoading] = useState(false);
+function EditRecipe() {
+    const {id} = useParams();
     const navigate = useNavigate();
+    const [formData, setFormData] = useState({
+        title: '',
+        description: '',
+        category: '',
+        ingredients: '',
+        instructions: '',
+    });
+
+    const [error, setError] = useState('');
+    const [loading,setLoading] = useState(false);
+    const [fetchLoading,setFetchLoading] = useState(false);
+
+    useEffect(() => {
+        const fetchRecipe = async () => {
+            try {
+                const response = await getRecipeById(id);
+                setFormData(response.data);
+            } catch (error) {
+                console.error('Error fetching recipe:', error);
+                alert('Recipe not found');
+                navigate('/my-recipes');
+            } finally {
+                setFetchLoading(false);
+            }
+        };
+
+        fetchRecipe();
+    }, [id]);
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
     };
 
     const handleSubmit = async (e) => {
@@ -25,20 +47,24 @@ function CreateRecipe() {
         setLoading(true);
 
         try {
-            await createRecipe(formData);
-            alert(`Recipe created successfully.`);
-            navigate("/my-recipes");
+            await updateRecipe(id, formData);
+            alert('Recipe updated successfully!');
+            navigate(`/recipes/${id}`);
         } catch (error) {
-            setError(error.response?.data || 'Failed to create recipe. Please try again');
+            setError(error.response?.data || 'Failed to update recipe. Please try again.');
         } finally {
             setLoading(false);
         }
     };
 
+    if (fetchLoading) {
+        return <div className="loading">Loading recipe...</div>;
+    }
+
     return (
         <div className="create-recipe-container">
             <div className="create-recipe-card">
-                <h2>Create New Recipe</h2>
+                <h2>Edit Recipe</h2>
                 {error && <div className="error-message">{error}</div>}
 
                 <form onSubmit={handleSubmit}>
@@ -50,7 +76,6 @@ function CreateRecipe() {
                             value={formData.title}
                             onChange={handleChange}
                             required
-                            placeholder="e.g., Spaghetti Carbonara"
                         />
                     </div>
 
@@ -62,14 +87,13 @@ function CreateRecipe() {
                             onChange={handleChange}
                             required
                             rows="3"
-                            placeholder="Brief description of your recipe"
                         />
                     </div>
 
                     <div className="form-row">
                         <div className="form-group">
                             <label>Category</label>
-                            <select name="category" value={formData.category} onChange={handleChange}>
+                            <select name="category" value={formData.category || ''} onChange={handleChange}>
                                 <option value="">Select category</option>
                                 <option value="BREAKFAST">Breakfast</option>
                                 <option value="LUNCH">Lunch</option>
@@ -88,7 +112,6 @@ function CreateRecipe() {
                             onChange={handleChange}
                             required
                             rows="5"
-                            placeholder="List ingredients (one per line or separated by commas)"
                         />
                     </div>
 
@@ -100,16 +123,15 @@ function CreateRecipe() {
                             onChange={handleChange}
                             required
                             rows="8"
-                            placeholder="Step-by-step cooking instructions"
                         />
                     </div>
 
                     <div className="form-actions">
-                        <button type="button" onClick={() => navigate('/')} className="btn-cancel">
+                        <button type="button" onClick={() => navigate(`/recipes/${id}`)} className="btn-cancel">
                             Cancel
                         </button>
                         <button type="submit" disabled={loading} className="btn-submit">
-                            {loading ? 'Creating...' : 'Create Recipe'}
+                            {loading ? 'Updating...' : 'Update Recipe'}
                         </button>
                     </div>
                 </form>
@@ -118,4 +140,4 @@ function CreateRecipe() {
     );
 }
 
-export default CreateRecipe;
+export default EditRecipe;

@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import RecipeCard from "../components/RecipeCard";
-import {deleteRecipe, getMyRecipes} from "../services/api";
-import './MyRecipes.css';
+import {deleteRecipe, getMyRecipes} from "../../services/api";
+import '../styles/MyRecipes.css';
 
 function MyRecipes() {
     const [recipes, setRecipes] = useState({});

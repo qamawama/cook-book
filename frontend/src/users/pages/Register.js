@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
-import { register } from '../services/api';
-import './Auth.css';
+import { register } from '../../services/api';
+import '../styles/Auth.css';
 
 function Register() {
     const [formData, setFormData] = useState({

@@ -1,5 +1,5 @@
 import {Link, useNavigate} from "react-router-dom";
-import './RecipeCard.css';
+import '../styles/RecipeCard.css';
 
 function RecipeCard({recipe, onDelete, showActions = false}) {
     const navigate = useNavigate();

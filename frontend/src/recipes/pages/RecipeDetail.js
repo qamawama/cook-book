@@ -1,7 +1,7 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {deleteRecipe, getRecipeById} from "../services/api";
-import './RecipeDetail.css';
+import {deleteRecipe, getRecipeById} from "../../services/api";
+import '../styles/RecipeDetail.css';
 
 function RecipeDetail() {
     const {id} = useParams();
